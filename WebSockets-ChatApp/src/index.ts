@@ -23,8 +23,7 @@ wss.on("connection", (socket) => {
     try {
       parsedMessage = JSON.parse(message.toString());
     } catch (error) {
-        console.error("Received non-JSON message:", message.toString());
-        socket.send(`Please! , send the message in JSON-Format.`);
+      console.error("Received non-JSON message:", message.toString());
       return; // Ignore non-JSON messages
     }
 
@@ -47,7 +46,7 @@ wss.on("connection", (socket) => {
         };
 
         allSockets.push(newUser);
-        console.log(`# User ${userCount} joined room : ${parsedMessage.payload.roomId}`);
+        console.log(`New user joined room: ${parsedMessage.payload.roomId}`);
       }
     }
 
@@ -56,7 +55,7 @@ wss.on("connection", (socket) => {
       const currentUser = allSockets.find((x) => x.socket === socket);
       if (currentUser) {
         const currentUserRoom = currentUser.room;
-        console.log(`Message received in room : ${currentUserRoom}`);
+        console.log(`Message received in room: ${currentUserRoom}`);
 
         // Broadcast message to all users in the same room
         allSockets.forEach((user) => {
